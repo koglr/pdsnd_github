@@ -14,6 +14,12 @@ Chicago, New York City and Washington to get insights into various statistics.
 |new_york_city.csv|Bikeshare data for New York City.|
 |washington.csv|Bikeshare data for Washington.|
 
+### Software Requirements
+- Python 3.8.5 or newer
+- Pandas 1.3.1 or newer
+
+All required libraries where installed using [Anaconda](https://www.anaconda.com/).
+
 ### Credits
 **String Formatting**
 - https://realpython.com/python-formatted-output/
