@@ -1,6 +1,5 @@
 import time
 import pandas as pd
-import numpy as np
 
 CITY_DATA = {
     'Chicago': 'chicago.csv',
@@ -41,6 +40,11 @@ DAY_OPTIONS = {
     7: 'Sunday'
 }
 
+RAW_DATA_DISPLAY_OPTIONS = {
+    0: 'Yes',
+    1: 'No'
+}
+
 RESTART_OPTIONS = {
     0: 'Yes',
     1: 'No'
@@ -73,10 +77,10 @@ def get_filters():
 
 def get_user_input_for_options(name, option_set, replace_message=False):
     """
-    Generic helper function to get a selection from the user for a given set of options from the command line.
+    Generic helper function to get an option from the user for a given set of options from the command line.
 
     Args:
-        (str) name - name of the option which shall be displayed to the user
+        (str) name - name of the city to ask the user for
         (str) option_set - a dictionary in the form of {option_value as int: option_name as string}
         (str) replace_message - if true, the provided value for 'name' is taken as message.
                                 if false, the generic message is displayed with  the 'name' included.
@@ -252,6 +256,23 @@ def user_stats(df):
     print('-' * 40)
 
 
+def display_raw_data(df):
+    """Displays the raw data."""
+    offset = 0
+    while True:
+        raw_data_display = get_user_input_for_options('Would you like to examine the raw data of the trips?',
+                                                      RAW_DATA_DISPLAY_OPTIONS,
+                                                      True)
+
+        if raw_data_display == 0:
+            data_chunk = df.iloc[offset: offset + 5]
+            offset = offset + 5
+            with pd.option_context('display.max_columns', None):
+                print(data_chunk)
+        else:
+            break
+
+
 def main():
     while True:
         city, month, day = get_filters()
@@ -261,6 +282,7 @@ def main():
         station_stats(df)
         trip_duration_stats(df)
         user_stats(df)
+        display_raw_data(df)
 
         restart = get_user_input_for_options('Would you like to restart?', RESTART_OPTIONS, True)
         if restart == 1:
