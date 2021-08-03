@@ -217,22 +217,25 @@ def user_stats(df):
     print(user_type_count_msg)
 
     # Display counts of gender
-    gender_count = df['Gender'].value_counts()
-    gender_count_msg = 'The counts of genders is: \n{}\n\n'.format(gender_count)
-    print(gender_count_msg)
+    if 'Gender' in df.columns:
+        gender_count = df['Gender'].value_counts()
+        gender_count_msg = 'The counts of genders is: \n{}\n\n'.format(gender_count)
+        print(gender_count_msg)
 
     # Display earliest, most recent, and most common year of birth
-    earliest_year_of_birth = int(df['Birth Year'].min())
-    earliest_year_of_birth_msg = 'The earliest year of birth is: \n{}\n\n'.format(earliest_year_of_birth)
-    print(earliest_year_of_birth_msg)
+    if 'Birth Year' in df.columns:
+        earliest_year_of_birth = int(df['Birth Year'].min())
+        earliest_year_of_birth_msg = 'The earliest year of birth is: \n{}\n\n'.format(earliest_year_of_birth)
+        print(earliest_year_of_birth_msg)
 
-    most_recent_year_of_birth = int(df['Birth Year'].max())
-    most_recent_year_of_birth_msg = 'The most recent year of birth is: \n{}\n\n'.format(most_recent_year_of_birth)
-    print(most_recent_year_of_birth_msg)
+        most_recent_year_of_birth = int(df['Birth Year'].max())
+        most_recent_year_of_birth_msg = 'The most recent year of birth is: \n{}\n\n'.format(most_recent_year_of_birth)
+        print(most_recent_year_of_birth_msg)
 
-    most_common_year_of_birth_msg = int(df['Birth Year'].mode()[0])
-    most_common_year_of_birth_msg = 'The most common year of birth is: \n{}\n\n'.format(most_common_year_of_birth_msg)
-    print(most_common_year_of_birth_msg)
+        most_common_year_of_birth_msg = int(df['Birth Year'].mode()[0])
+        most_common_year_of_birth_msg = 'The most common year of birth is: \n{}\n\n'.format(
+            most_common_year_of_birth_msg)
+        print(most_common_year_of_birth_msg)
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-' * 40)
