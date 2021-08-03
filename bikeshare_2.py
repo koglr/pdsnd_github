@@ -41,6 +41,11 @@ DAY_OPTIONS = {
     7: 'Sunday'
 }
 
+RESTART_OPTIONS = {
+    0: 'Yes',
+    1: 'No'
+}
+
 
 def get_filters():
     """
@@ -59,20 +64,22 @@ def get_filters():
     day = get_user_input_for_options('Day', DAY_OPTIONS)
 
     print('Filters are set to: \n\t City = {} \n\t Month = {} \n\t Day = {}'.format(CITY_OPTIONS[city],
-                                                                                     MONTH_OPTIONS[month],
-                                                                                     DAY_OPTIONS[day]))
+                                                                                    MONTH_OPTIONS[month],
+                                                                                    DAY_OPTIONS[day]))
 
     print('-' * 40)
     return city, month, day
 
 
-def get_user_input_for_options(name, option_set):
+def get_user_input_for_options(name, option_set, replace_message=False):
     """
     Generic helper function to get an option from the user for a given set of options from the command line.
 
     Args:
         (str) name - name of the city to ask the user for
         (str) option_set - a dictionary in the form of {option_value as int: option_name as string}
+        (str) replace_message - if true, the provided value for 'name' is taken as message.
+                                if false, the generic message is displayed with  the 'name' included.
     Returns:
         chosen_option - the option_value chosen as int
     """
@@ -82,7 +89,11 @@ def get_user_input_for_options(name, option_set):
 
     while True:
         try:
-            print('Please choose a valid value for {}. Valid options are:'.format(name))
+            if replace_message:
+                print('{}. Valid options are:'.format(name))
+            else:
+                print('Please choose a valid value for {}. Valid options are:'.format(name))
+
             for option_name, option_value in option_set.items():
                 print('\t{} => {}'.format(option_name, option_value))
 
@@ -251,8 +262,8 @@ def main():
         trip_duration_stats(df)
         user_stats(df)
 
-        restart = input('\nWould you like to restart? Enter yes or no.\n')
-        if restart.lower() != 'yes':
+        restart = get_user_input_for_options('Would you like to restart?', RESTART_OPTIONS, True)
+        if restart == 1:
             break
 
 
