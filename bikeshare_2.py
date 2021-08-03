@@ -68,10 +68,10 @@ def get_filters():
 
 def get_user_input_for_options(name, option_set):
     """
-    Generic helper function to get an option from the user for a given set of options from the command line.
+    Generic helper function to get a selection from the user for a given set of options from the command line.
 
     Args:
-        (str) name - name of the city to ask the user for
+        (str) name - name of the option which shall be displayed to the user
         (str) option_set - a dictionary in the form of {option_value as int: option_name as string}
     Returns:
         chosen_option - the option_value chosen as int
